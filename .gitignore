@@ -1,0 +1,34 @@
+node_modules/
+.env
+.env.local
+.env.*.local
+*.log
+
+# Genie runtime
+cursor.json
+screenshots/
+browser-profile/
+.playwright-mcp/
+.vercel/
+deploy.log
+resume-prompt.txt
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Temp
+/tmp/
+*.tmp
+
+# Build artifacts
+dist/
+
+# Random screenshots at repo root
+*.png
+!docs/**/*.png
+engines/

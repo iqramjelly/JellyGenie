@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.jellygenie.server</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>NODE_BIN</string>
+        <string>GENIE_REPO_DIR/src/core/server.mjs</string>
+    </array>
+
+    <key>WorkingDirectory</key>
+    <string>GENIE_REPO_DIR</string>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+        <key>HOME</key>
+        <string>/Users/YOURNAME</string>
+    </dict>
+
+    <key>RunAtLoad</key>
+    <true/>
+
+    <key>KeepAlive</key>
+    <dict>
+        <key>SuccessfulExit</key>
+        <false/>
+        <key>Crashed</key>
+        <true/>
+    </dict>
+
+    <key>ThrottleInterval</key>
+    <integer>10</integer>
+
+    <key>StandardOutPath</key>
+    <string>/tmp/jellygenie-logs/launchd.out.log</string>
+
+    <key>StandardErrorPath</key>
+    <string>/tmp/jellygenie-logs/launchd.err.log</string>
+</dict>
+</plist>

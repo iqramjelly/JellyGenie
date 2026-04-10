@@ -1,0 +1,34 @@
+{
+  "name": "jellygenie",
+  "version": "1.0.0",
+  "description": "Voice-triggered autonomous agent powered by Claude Code. Say 'genie' into a JellyJelly video — it does the rest.",
+  "type": "module",
+  "main": "src/core/server.mjs",
+  "scripts": {
+    "start": "node src/core/server.mjs",
+    "setup": "bash setup.sh",
+    "trigger": "node src/core/trigger.mjs",
+    "test:api": "node test/test-jelly-api.mjs",
+    "test:deploy": "node test/test-vercel-deploy.mjs",
+    "test:telegram": "node test/test-telegram.mjs",
+    "test:interpret": "node test/test-interpreter.mjs",
+    "test:keyword": "node test/test-keyword.mjs",
+    "test:browser": "node test/test-browser.mjs",
+    "test:all": "node test/run-all.mjs",
+    "setup:browser": "node src/browser/setup-profile.mjs",
+    "dashboard": "node dashboard/server.mjs"
+  },
+  "keywords": [
+    "jellygenie",
+    "jellyjelly",
+    "claude-code",
+    "agentic",
+    "voice-agent"
+  ],
+  "author": "JellyGenie Contributors",
+  "license": "MIT",
+  "dependencies": {
+    "@playwright/mcp": "^0.0.70",
+    "playwright": "^1.59.1"
+  }
+}
