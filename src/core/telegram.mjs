@@ -7,17 +7,17 @@
 import { readFileSync } from 'fs';
 import { basename } from 'path';
 
-const BOT_TOKEN = () => {
-  const t = process.env.TELEGRAM_BOT_TOKEN;
-  if (!t) throw new Error('TELEGRAM_BOT_TOKEN is not set — add it to .env');
-  return t;
+const BOT_TOKEN = () => process.env.TELEGRAM_BOT_TOKEN || null;
+const CHAT_ID = () => process.env.TELEGRAM_CHAT_ID || null;
+const API_BASE = () => {
+  const t = BOT_TOKEN();
+  return t ? `https://api.telegram.org/bot${t}` : null;
 };
-const CHAT_ID = () => {
-  const c = process.env.TELEGRAM_CHAT_ID;
-  if (!c) throw new Error('TELEGRAM_CHAT_ID is not set — add it to .env');
-  return c;
-};
-const API_BASE = () => `https://api.telegram.org/bot${BOT_TOKEN()}`;
+
+/** Returns true when Telegram is configured and available. */
+export function isTelegramEnabled() {
+  return !!(BOT_TOKEN() && CHAT_ID());
+}
 
 function log(msg) {
   console.log(`[GENIE] [TELEGRAM] ${msg}`);
@@ -31,6 +31,11 @@ function log(msg) {
 let rateLimitedUntil = 0;
 
 export async function sendMessage(text, options = {}) {
+  // No-op when Telegram is not configured (Jelly Chat is the primary channel)
+  if (!isTelegramEnabled()) {
+    return { ok: true, skipped: true };
+  }
+
   // Respect rate limit — don't spam while banned
   if (Date.now() < rateLimitedUntil) {
     return { ok: false, error: 'rate limited' };
@@ -83,6 +88,10 @@ export async function sendMessage(text, options = {}) {
  * @returns {Promise<object>} Telegram API response
  */
 export async function sendPhoto(photoPath, caption = '') {
+  if (!isTelegramEnabled()) {
+    return { ok: true, skipped: true };
+  }
+
   const url = `${API_BASE()}/sendPhoto`;
 
   try {
